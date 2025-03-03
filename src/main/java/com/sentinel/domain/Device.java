@@ -4,7 +4,7 @@ import com.sentinel.domain.directions.Direction;
 import com.sentinel.domain.directions.DirectionAxe;
 import com.sentinel.domain.directions.DirectionState;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class Device {
@@ -15,11 +15,11 @@ public class Device {
     public Device () {
         position = Direction.idleAll();
         rotation = Direction.idleAll();
-        blockedPositions = new HashMap<>();
+        blockedPositions = new EnumMap<>(DirectionAxe.class);
     }
 
     public void changePosition(DirectionAxe directionAxe, DirectionState state) {
-        if (blockedPositions.containsKey(directionAxe) && blockedPositions.get(directionAxe)){
+        if (blockedPositions.containsKey(directionAxe) && Boolean.TRUE.equals(blockedPositions.get(directionAxe))) {
             return;
         }
         position.set(directionAxe, state);
